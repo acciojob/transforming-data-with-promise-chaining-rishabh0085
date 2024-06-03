@@ -1,60 +1,69 @@
-//your JS code here. If required.
-document.getElementById('btn').addEventListener('click', function() {
-    // Step 1: Create a promise that resolves after 2 seconds with the number from the input
-    const step1Promise = new Promise((resolve, reject) => {
-        setTimeout(() => {
-            const number = document.getElementById('ip').value;
-            resolve(number);
-        }, 2000);
-    });
+document.getElementById("btn").addEventListener("click", function () {
+  const inputNumber = parseInt(document.getElementById("ip").value);
 
-    // Step 2: Print the initial number
-    step1Promise.then(number => {
-        document.getElementById('output').innerText = `Result: ${number}`;
-        return number;
+  if (isNaN(inputNumber)) {
+    document.getElementById("output").textContent = "Please enter a valid number.";
+    return;
+  }
+
+  // First Promise
+  const firstPromise = new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(inputNumber);
+    }, 2000);
+  });
+
+  // Chain of Promises
+  firstPromise
+    .then((result) => {
+      document.getElementById("output").textContent = `Result: ${result}`;
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(result);
+        }, 2000);
+      });
     })
-    // Step 3: Multiply the number by 2 and resolve after 1 second
-    .then(number => {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                const result = number * 2;
-                document.getElementById('output').innerText = `Result: ${result}`;
-                resolve(result);
-            }, 1000);
-        });
+    .then((result) => {
+      const newResult = result * 2;
+      document.getElementById("output").textContent = `Result: ${newResult}`;
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(newResult);
+        }, 1000);
+      });
     })
-    // Step 4: Subtract 3 from the number and resolve after 1 second
-    .then(number => {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                const result = number - 3;
-                document.getElementById('output').innerText = `Result: ${result}`;
-                resolve(result);
-            }, 1000);
-        });
+    .then((result) => {
+      const newResult = result - 3;
+      document.getElementById("output").textContent = `Result: ${newResult}`;
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(newResult);
+        }, 1000);
+      });
     })
-    // Step 5: Divide the number by 2 and resolve after 1 second
-    .then(number => {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                const result = number / 2;
-                document.getElementById('output').innerText = `Result: ${result}`;
-                resolve(result);
-            }, 1000);
-        });
+    .then((result) => {
+      const newResult = result / 2;
+      document.getElementById("output").textContent = `Result: ${newResult}`;
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(newResult);
+        }, 1000);
+      });
     })
-    // Step 6: Add 10 to the number and resolve after 1 second
-    .then(number => {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                const result = number + 10;
-                document.getElementById('output').innerText = `Result: ${result}`;
-                resolve(result);
-            }, 1000);
-        });
+    .then((result) => {
+      const newResult = result + 10;
+      document.getElementById("output").textContent = `Result: ${newResult}`;
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(newResult);
+        }, 1000);
+      });
     })
-    // Step 7: Print the final result
-    .then(finalResult => {
-        document.getElementById('output').innerText = `Final Result: ${finalResult}`;
+    .then((finalResult) => {
+      // Update the output div with the final result
+      document.getElementById("output").textContent = `Final Result: ${finalResult}`;
+    })
+    .catch((error) => {
+      console.error("Error:", error);
     });
 });
